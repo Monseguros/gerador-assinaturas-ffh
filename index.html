@@ -1,164 +1,203 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gerador de Assinatura</title>
-  <style>
-    @font-face {
-      font-family: 'open-sauce-sans';
-      src: url('fonts/OpenSauceSans-Bold.ttf') format('ttf'),
-           url('fonts/OpenSauceSans-Regular.ttf') format('ttf');
-      font-weight: normal;
-      font-style: normal;
-    }
-    body {
-      font-family: 'open-sauce-sans', Verdana, Geneva, Tahoma, sans-serif;
-      background-color: #ffffff;
-      padding: 25px;
-      text-align: center;
-    }
-    .form {
-      margin-bottom: 20px;
-    }
-    input {
-      margin: 5px;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      width: 200px;
-    }
-    #assinatura {
-      width: 960px;
-      background-color: #101820;
-      height: 200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: '1fr 1fr 1fr';
-      box-sizing: border-box;
-      padding: 20px 0 10px 0;
-      position: relative;
-    }
-    .conteudo {
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 80px;
-      box-sizing: border-box;
-      position: relative;
-    }
-    .separador-vertical {
-      width: 1px;
-      height: 100px;
-      background-color: #e3e3e3;
-      margin: 0 20px;
-    }
-    .logo {
-      width: 200px;
-    }
-    .info {
-      text-align: center;
-      color: #fff;
-    }
-    .nome {
-      color: #FFC845;
-      font-weight: 400;
-      font-size: 22px;
-      line-height: 1.5;
-    }
-    .cargo {
-      font-size: 14px;
-      font-weight: 200;
-      line-height: 1.2;
-      margin-top: 2px;
-    }
-    .linha {
-      width: 60px;
-      height: 1px;
-      background-color: #e3e3e3;
-      margin: 8px auto;
-    }
-    .telefone, .site {
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 1.2;
-      margin-top: 2px;
-    }
-    .redes {
-      width: 180px;
-    }
-    .rodape {
-      width: 100%;
-      height: auto;
-      margin-top: 50px;
-    }
-    button {
-      padding: 10px 20px;
-      background-color: #FFC845;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .bot-line {
-      background-color: #FFC845;
-      height: 30px;
-      width: 100%;
-      margin-bottom: 0;
-    }
-  </style>
-</head>
-<body>
-  <h2>Gerador de Assinatura Mon Seguros</h2>
-  <div class="form">
-    <input type="text" id="nome" placeholder="Nome completo" />
-    <input type="text" id="cargo" placeholder="Seu Time" />
-    <input type="text" id="telefone" placeholder="Telefone (opcional)" />
-    <br />
-    <button onclick="gerarAssinatura()">Gerar Assinatura</button>
-  </div>
-
-  <div id="assinatura">
-    <div class="conteudo">
-      <img width="" src="https://i.imgur.com/DTGWQDV.png" alt="Logo" class="logo">
-      <div class="separador-vertical"></div>
-      <div class="info">
-        <div class="nome" id="nomeDisplay"></div>
-        <div class="cargo" id="cargoDisplay"></div>
-        <div class="linha"></div>
-        <div class="telefone" id="telefoneDisplay"></div>
-        <div class="site">monseguros.com.br</div>
-      </div>
-      <div class="separador-vertical"></div>
-      <div>
-        <img width="50px" src="https://i.imgur.com/3f3LelM.png" alt="" />
-        <img width="50px" src="https://i.imgur.com/as5JXHJ.png" alt="" />
-      </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerador de Assinatura</title>
+    <style>
+      @font-face {
+        font-family: "open-sauce-sans";
+        src: url("fonts/OpenSauceSans-Bold.ttf") format("ttf"),
+          url("fonts/OpenSauceSans-Regular.ttf") format("ttf");
+        font-weight: normal;
+        font-style: normal;
+      }
+      body {
+        font-family: "open-sauce-sans", Verdana, Geneva, Tahoma, sans-serif;
+        background-color: #ffffff;
+        padding: 25px;
+        text-align: center;
+      }
+      .form {
+        margin-bottom: 20px;
+      }
+      input {
+        margin: 5px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 200px;
+      }
+      #assinatura {
+        overflow: hidden;
+        width: 900px;
+        background-color: #101820;
+        height: 180px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-rows: "1fr 1fr";
+        grid-template-columns: "1fr 1fr 1fr";
+        box-sizing: border-box;
+        padding: 10px 0 0 0;
+        position: relative;
+        align-items: last baseline;
+      }
+      .conteudo {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 80px;
+        box-sizing: border-box;
+        position: relative;
+      }
+      .separador-vertical {
+        width: 1px;
+        height: 100px;
+        background-color: #ffc845;
+        margin: 0 20px;
+      }
+      .logo {
+        width: 200px;
+      }
+      .info {
+        text-align: center;
+        color: #fff;
+      }
+      .nome {
+        color: #ffc845;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 1.5;
+      }
+      .cargo {
+        font-size: 14px;
+        font-weight: 200;
+        line-height: 1.2;
+        margin-top: 2px;
+      }
+      .linha {
+        width: 60px;
+        height: 1px;
+        background-color: #ffc845;
+        margin: 8px auto;
+      }
+      .telefone,
+      .site {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.2;
+        margin-top: 2px;
+      }
+      .redes {
+        width: 180px;
+      }
+      .rodape {
+        width: 100%;
+        height: auto;
+        margin-top: 50px;
+      }
+      button {
+        padding: 10px 20px;
+        background-color: #ffc845;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .bot-line {
+        background-color: #ffc845;
+        height: 30px;
+        width: 100%;
+        margin-bottom: 0;
+      }
+      .container-logo {
+        position: relative;
+      }
+      .container-logo .moeda {
+        position: absolute;
+        width: 130%;
+        top: -220px;
+        right: -70%;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Gerador de Assinatura Mon Seguros</h2>
+    <div class="form">
+      <input type="text" id="nome" placeholder="Nome completo" />
+      <input type="text" id="cargo" placeholder="Seu Time" />
+      <input type="text" id="telefone" placeholder="Telefone (opcional)" />
+      <br />
+      <button onclick="gerarAssinatura()">Gerar Assinatura</button>
     </div>
-    <p class="bot-line"></p>
-  </div>
-  <br />
-  <button onclick="baixarImagem()">Baixar imagem</button>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script>
-    function gerarAssinatura() {
-      document.getElementById('nomeDisplay').innerText = document.getElementById('nome').value;
-      document.getElementById('cargoDisplay').innerText = document.getElementById('cargo').value;
-      document.getElementById('telefoneDisplay').innerText = document.getElementById('telefone').value;
-    }
+    <div id="assinatura">
+      <div class="conteudo">
+        <div class="container-logo">
+          <img src="https://i.imgur.com/DTGWQDV.png" alt="Logo" class="logo" />
+        </div>
+        <div class="separador-vertical"></div>
+        <div class="info">
+          <div class="nome" id="nomeDisplay"></div>
+          <div class="cargo" id="cargoDisplay"></div>
+          <div class="linha"></div>
+          <div style="display: flex; align-items: center">
+            <img width="30px" src="https://i.imgur.com/3f3LelM.png" alt="" />
+            <div class="telefone" id="telefoneDisplay"></div>
+          </div>
+          <div class="site">monseguros.com.br</div>
+        </div>
+        <div class="separador-vertical"></div>
+        <div
+          class="container-logo"
+          style="
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: baseline;
+            margin-top: 70px;
+          "
+        >
+          <img class="moeda" src="./image/moeda.png" alt="" />
 
-    function baixarImagem() {
-      html2canvas(document.querySelector("#assinatura"), {useCORS: true, backgroundColor: null}).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'assinatura.png';
-        link.href = canvas.toDataURL('image/png');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      });
-    }
-  </script>
-</body>
+          <p class="info" style="text-align: end; font-size: 12px; margin: 0">
+            Rua Mostardeiro, 322. Salas 1501 e 1502
+          </p>
+          <p class="info" style="text-align: end; font-size: 12px; margin: 0">
+            Moinhos de Vento - Porto Alegre/RS
+          </p>
+        </div>
+      </div>
+      <div class="bot-line"></div>
+    </div>
+    <br />
+    <button onclick="baixarImagem()">Baixar imagem</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+      function gerarAssinatura() {
+        document.getElementById("nomeDisplay").innerText =
+          document.getElementById("nome").value;
+        document.getElementById("cargoDisplay").innerText =
+          document.getElementById("cargo").value;
+        document.getElementById("telefoneDisplay").innerText =
+          document.getElementById("telefone").value;
+      }
+
+      function baixarImagem() {
+        html2canvas(document.querySelector("#assinatura"), {
+          useCORS: true,
+          backgroundColor: null,
+        }).then((canvas) => {
+          const link = document.createElement("a");
+          link.download = "assinatura.png";
+          link.href = canvas.toDataURL("image/png");
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        });
+      }
+    </script>
+  </body>
 </html>
