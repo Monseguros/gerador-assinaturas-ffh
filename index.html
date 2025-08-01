@@ -1,682 +1,181 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gerador de Assinatura - Mon Seguros</title>
-  <!-- Bibliotecas externas -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <!-- Fontes do Google -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary-dark: #101820;
-      --primary-accent: #FFC845;
-      --secondary-light: #FFFFFF;
-      --gray-light: #f5f5f5;
-      --gray-medium: #e0e0e0;
-      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      --transition: all 0.3s ease;
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
-      min-height: 100vh;
-      padding: 30px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: #333;
-    }
-    
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 40px;
-    }
-    
-    header {
-      text-align: center;
-      margin-bottom: 10px;
-      padding: 20px;
-      background: linear-gradient(135deg, #101820 0%, #1a2635 100%);
-      border-radius: 16px;
-      width: 100%;
-      box-shadow: var(--shadow);
-    }
-    
-    .logo-header {
-      width: 320px;
-      height: 100px;
-      margin: 0 auto 15px;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-      object-fit: cover;
-    }
-    
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 600;
-      color: var(--primary-accent);
-      margin-bottom: 5px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    
-    .subtitle {
-      color: rgba(255, 255, 255, 0.85);
-      font-size: 1.1rem;
-      font-weight: 400;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    
-    .card {
-      background: var(--secondary-light);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      padding: 30px;
-      width: 100%;
-      max-width: 800px;
-      transition: var(--transition);
-    }
-    
-    .card:hover {
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-      transform: translateY(-5px);
-    }
-    
-    .card-title {
-      font-size: 1.5rem;
-      color: var(--primary-dark);
-      margin-bottom: 25px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      border-bottom: 2px solid var(--primary-accent);
-      padding-bottom: 12px;
-    }
-    
-    .card-title i {
-      color: var(--primary-accent);
-      font-size: 1.8rem;
-    }
-    
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-    
-    .input-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      position: relative;
-    }
-    
-    .input-group.required label::after {
-      content: " *";
-      color: #e74c3c;
-    }
-    
-    label {
-      font-weight: 500;
-      color: var(--primary-dark);
-      font-size: 0.95rem;
-    }
-    
-    input {
-      padding: 14px 16px;
-      border: 2px solid var(--gray-medium);
-      border-radius: 10px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 1rem;
-      transition: var(--transition);
-    }
-    
-    input:focus {
-      border-color: var(--primary-accent);
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(255, 200, 69, 0.2);
-    }
-    
-    .button-group {
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 25px;
-    }
-    
-    .btn {
-      padding: 14px 32px;
-      border-radius: 10px;
-      border: none;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: var(--transition);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .btn-primary {
-      background: var(--primary-accent);
-      color: var(--primary-dark);
-      box-shadow: 0 4px 10px rgba(255, 200, 69, 0.3);
-    }
-    
-    .btn-primary:hover {
-      background: #ffb91c;
-      box-shadow: 0 6px 14px rgba(255, 200, 69, 0.4);
-      transform: translateY(-2px);
-    }
-    
-    .btn-secondary {
-      background: var(--primary-dark);
-      color: var(--secondary-light);
-      box-shadow: 0 4px 10px rgba(16, 24, 32, 0.15);
-    }
-    
-    .btn-secondary:hover {
-      background: #0a1018;
-      box-shadow: 0 6px 14px rgba(16, 24, 32, 0.2);
-      transform: translateY(-2px);
-    }
-    
-    .preview-container {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 25px;
-      background: white;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-    }
-    
-    .preview-title {
-      font-size: 1.4rem;
-      color: var(--primary-dark);
-      font-weight: 600;
-      text-align: center;
-      margin-bottom: 15px;
-    }
-    
-    /* Estilo da assinatura mantido igual ao original */
-    #assinatura {
-      overflow: hidden;
-      width: 900px;
-      background-color: #101820;
-      height: 180px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-rows: "1fr 1fr";
-      grid-template-columns: "1fr 1fr 1fr";
-      box-sizing: border-box;
-      padding: 10px 0 0 0;
-      position: relative;
-      align-items: last baseline;
-      border-radius: 4px;
-    }
-    
-    .conteudo {
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 80px;
-      box-sizing: border-box;
-      position: relative;
-    }
-    
-    .separador-vertical {
-      width: 1px;
-      height: 100px;
-      background-color: #ffc845;
-      margin: 0 20px;
-    }
-    
-    .logo {
-      width: 170px;
-      height: 135px;
-      object-fit: cover;
-    }
-    
-    .info {
-      text-align: center;
-      color: #fff;
-    }
-    
-    .nome {
-      color: #ffc845;
-      font-weight: 400;
-      font-size: 22px;
-      line-height: 1.5;
-    }
-    
-    .cargo {
-      font-size: 14px;
-      font-weight: 200;
-      line-height: 1.2;
-      margin-top: 2px;
-    }
-    
-    .linha {
-      width: 60px;
-      height: 1px;
-      background-color: #ffc845;
-      margin: 8px auto;
-    }
-    
-    .telefone,
-    .site {
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 1.2;
-      margin-top: 2px;
-    }
-    
-    .redes {
-      width: 180px;
-    }
-    
-    .rodape {
-      width: 100%;
-      height: auto;
-      margin-top: 50px;
-    }
-    
-    .bot-line {
-      background-color: #ffc845;
-      height: 30px;
-      width: 100%;
-      margin-bottom: 0;
-      z-index: 99999999;
-    }
-    
-    .container-logo {
-      position: relative;
-    }
-    
-    .container-logo .moeda {
-      position: absolute;
-      width: 130%;
-      top: -110px;
-      right: -70%;
-    }
-    
-    .info-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-    
-    .contact-icon {
-      width: 20px;
-    }
-    
-    .address {
-      text-align: right;
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.8);
-      line-height: 1.5;
-      margin-top: 60px;
-    }
-    
-    .instructions {
-      background: var(--secondary-light);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      padding: 25px;
-      width: 100%;
-      max-width: 800px;
-    }
-    
-    .instructions h3 {
-      color: var(--primary-dark);
-      margin-bottom: 15px;
-      font-size: 1.3rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border-bottom: 2px solid var(--primary-accent);
-      padding-bottom: 10px;
-    }
-    
-    .steps {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-    
-    .step {
-      display: flex;
-      gap: 15px;
-      padding: 12px;
-      border-radius: 10px;
-      background: var(--gray-light);
-      transition: var(--transition);
-    }
-    
-    .step:hover {
-      transform: translateX(5px);
-    }
-    
-    .step-number {
-      background: var(--primary-accent);
-      color: var(--primary-dark);
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-    
-    .step-content {
-      font-size: 0.95rem;
-      color: #555;
-    }
-    
-    @media (max-width: 900px) {
-      .conteudo {
-        padding: 0 40px;
-      }
-    }
-    
-    @media (max-width: 768px) {
-      .conteudo {
-        padding: 0 20px;
-      }
-      
-      .logo {
-        width: 160px;
-      }
-      
-      .container-logo .moeda {
-        display: none;
-      }
-      
-      .separador-vertical {
-        margin: 0 10px;
-      }
-      
-      .nome {
-        font-size: 18px;
-      }
-    }
-    
-    @media (max-width: 600px) {
-      .card {
-        padding: 20px;
-      }
-      
-      .conteudo {
-        flex-direction: column;
-        padding: 20px;
-        gap: 15px;
-        align-items: center;
-      }
-      
-      .separador-vertical {
-        width: 100px;
-        height: 1px;
-        margin: 10px 0;
-      }
-      
-      .info {
-        order: 2;
-      }
-      
-      .container-logo {
-        order: 1;
-        align-items: center;
-        margin-top: 0;
-      }
-      
-      .address {
-        text-align: center;
-        margin-top: 10px;
-      }
-      
-      #assinatura {
-        height: auto;
-        padding-bottom: 20px;
-        width: 100%;
-      }
-      
-      .bot-line {
-        margin-top: 20px;
-      }
-      
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-    
-    .toast {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: var(--primary-dark);
-      color: var(--secondary-light);
-      padding: 16px 24px;
-      border-radius: 10px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      z-index: 1000;
-      opacity: 0;
-      transition: all 0.4s ease;
-    }
-    
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-    
-    .toast-icon {
-      font-size: 1.4rem;
-      color: var(--primary-accent);
-    }
-    
-    .footer {
-      margin-top: 40px;
-      text-align: center;
-      color: #777;
-      font-size: 0.9rem;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <header>
-      <img src="./image/monseguros-logo.png" alt="Logo Mon Seguros" class="logo-header" />
-      <h1>Gerador de Assinatura</h1>
-      <p class="subtitle">Crie assinaturas profissionais para e-mail com a identidade visual da Mon Seguros</p>
-    </header>
-    
-    <div class="card">
-      <h2 class="card-title">
-        <i>📝</i> Informações para Assinatura
-      </h2>
-      
-      <div class="form-grid">
-        <div class="input-group required">
-          <label for="nome">Nome Completo</label>
-          <input type="text" id="nome" placeholder="Ex: João Silva" required />
-        </div>
-        
-        <div class="input-group required">
-          <label for="cargo">Time/Departamento</label>
-          <input type="text" id="cargo" placeholder="Ex: Comercial" required />
-        </div>
-        
-        <div class="input-group required">
-          <label for="telefone">Telefone</label>
-          <input type="text" id="telefone" placeholder="(00) 00000-0000 ou 0800-000-0000" required />
-        </div>
-      </div>
-      
-      <div class="button-group">
-        <button class="btn btn-primary" onclick="gerarAssinatura()">
-          <i>🖌️</i> Gerar Assinatura
-        </button>
-        <button class="btn btn-secondary" onclick="baixarImagem()">
-          <i>💾</i> Baixar Imagem
-        </button>
-      </div>
-    </div>
-    
-    <div class="preview-container">
-      <h3 class="preview-title">Pré-visualização da Assinatura</h3>
-      <div id="assinatura">
-        <div class="conteudo">
-          <div class="container-logo">
-            <img src="./image/monseguros-logo.png" alt="Logo Mon Seguros" class="logo" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerador de Assinatura - FFH</title>
+    <!-- Bibliotecas externas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Fontes do Google -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+
+    <script defer src="index.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <img
+          src="./image/FFH/Logo FFH.png"
+          alt="Logo ffh"
+          class="logo-header"
+        />
+        <h1>Gerador de Assinatura</h1>
+        <p class="subtitle">
+          Crie assinaturas profissionais para e-mail com a identidade visual da
+          FFH
+        </p>
+      </header>
+
+      <div class="card">
+        <h2 class="card-title"><i>📝</i> Informações para Assinatura</h2>
+
+        <div class="form-grid">
+          <div class="input-group required">
+            <label for="nome">Nome Completo</label>
+            <input
+              type="text"
+              id="nome"
+              placeholder="Ex: João Silva"
+              required
+            />
           </div>
-          
-          <div class="separador-vertical"></div>
-          
-          <div class="info">
-            <div class="nome" id="nomeDisplay">Seu Nome Completo</div>
-            <div class="cargo" id="cargoDisplay">Seu Time/Departamento</div>
-            <div class="linha"></div>
-            <div class="info-row">
-              <img class="contact-icon" src="./image/phone.png" alt="Telefone" />
-              <div class="telefone" id="telefoneDisplay">(00) 00000-0000</div>
+
+          <div class="input-group required">
+            <label for="cargo">Time/Departamento</label>
+            <input
+              type="text"
+              id="cargo"
+              placeholder="Ex: Comercial"
+              required
+            />
+          </div>
+
+          <div class="input-group required">
+            <label for="telefone">Telefone</label>
+            <input
+              type="text"
+              id="telefone"
+              placeholder="(00) 00000-0000 ou 0800-000-0000"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button class="btn btn-primary" onclick="gerarAssinatura()">
+            <i>🖌️</i> Gerar Assinatura
+          </button>
+          <button class="btn btn-secondary" onclick="baixarImagem()">
+            <i>💾</i> Baixar Imagem
+          </button>
+        </div>
+      </div>
+
+      <div class="preview-container">
+        <h3 class="preview-title">Pré-visualização da Assinatura</h3>
+        <div id="assinatura">
+          <div class="conteudo">
+            <div class="container-logo">
+              <img
+                src="./image/FFH/Logo FFH.png"
+                alt="Logo Mon Seguros"
+                class="logo"
+              />
+              <div class="business">
+                <img src="./image/FFH/logo benemed branco.png" alt="" />
+                <img src="./image/FFH/[Logo] MonSeguros v1.png" alt="" />
+                <img src="./image/FFH/LOGO- EDUCARE 25.pdf.png" alt="" />
+                <img src="./image/FFH/evvolue.pdf.png" alt="" />
+              </div>
             </div>
-            <div class="site">monseguros.com.br</div>
-          </div>
-          
-          <div class="separador-vertical"></div>
-          
-          <div class="container-logo">
-            <div class="address">
-              Rua Mostardeiro, 322. Salas 1501 e 1502<br>
-              Moinhos de Vento - Porto Alegre/RS
+
+            <div class="separador-vertical"></div>
+
+            <div class="info">
+              <div class="nome" id="nomeDisplay">Seu Nome Completo</div>
+              <div class="cargo" id="cargoDisplay">Seu Time/Departamento</div>
+              <div class="linha"></div>
+              <div class="info-row">
+                <div>
+                  <img
+                    class="contact-icon"
+                    src="./image/FFH/WhatsApp.png"
+                    alt="Telefone"
+                  />
+                  <div class="telefone" id="telefoneDisplay">
+                    (00) 00000-0000
+                  </div>
+                </div>
+                <div>
+                  <img
+                    class="contact-icon"
+                    src="./image/FFH/Site.png"
+                    alt="Telefone"
+                  />
+                  <div class="site">https://holdingffh.com.br</div>
+                </div>
+              </div>
             </div>
-            <img class="moeda" src="./image/moeda.png" alt="" />
+
+            <div class="separador-vertical"></div>
+
+            <div class="container-logo container-address">
+              <img class="moeda" src="./image/FFH/Ícone FFH.png" alt="" />
+              <div class="address">
+                Rua Mostardeiro, 322. Salas 1501 e 1502<br />
+                Moinhos de Vento - Porto Alegre/RS
+              </div>
+            </div>
           </div>
         </div>
-        <div class="bot-line"></div>
+      </div>
+
+      <div class="instructions">
+        <h3><i>ℹ️</i> Como Utilizar</h3>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              Preencha seus dados nos campos acima (todos são obrigatórios)
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              Clique em "Gerar Assinatura" para visualizar
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              Clique em "Baixar Imagem" para salvar a assinatura
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              Adicione a imagem como assinatura em seu e-mail
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        © 2025 Mon Seguros - Todos os direitos reservados
       </div>
     </div>
-    
-    <div class="instructions">
-      <h3><i>ℹ️</i> Como Utilizar</h3>
-      <div class="steps">
-        <div class="step">
-          <div class="step-number">1</div>
-          <div class="step-content">Preencha seus dados nos campos acima (todos são obrigatórios)</div>
-        </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <div class="step-content">Clique em "Gerar Assinatura" para visualizar</div>
-        </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <div class="step-content">Clique em "Baixar Imagem" para salvar a assinatura</div>
-        </div>
-        <div class="step">
-          <div class="step-number">4</div>
-          <div class="step-content">Adicione a imagem como assinatura em seu e-mail</div>
-        </div>
+
+    <div class="toast" id="toast">
+      <div class="toast-icon">⚠️</div>
+      <div class="toast-message">
+        Por favor, preencha todos os campos obrigatórios
       </div>
     </div>
-    
-    <div class="footer">
-      © 2025 Mon Seguros - Todos os direitos reservados
-    </div>
-  </div>
-  
-  <div class="toast" id="toast">
-    <div class="toast-icon">⚠️</div>
-    <div class="toast-message">Por favor, preencha todos os campos obrigatórios</div>
-  </div>
-
-  <script>
-    function showToast(message) {
-      const toast = document.getElementById('toast');
-      const toastMessage = toast.querySelector('.toast-message');
-      toastMessage.textContent = message;
-      
-      toast.classList.add('show');
-      
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3000);
-    }
-
-    function gerarAssinatura() {
-      const nome = document.getElementById("nome").value;
-      const cargo = document.getElementById("cargo").value;
-      let telefone = document.getElementById("telefone").value;
-      
-      // Validação dos campos obrigatórios
-      if (!nome || !cargo || !telefone) {
-        showToast("Por favor, preencha todos os campos obrigatórios");
-        return;
-      }
-      
-      // Formata o telefone para exibição
-      telefone = telefone.replace(/\D/g, '');
-      let telefoneFormatado = '';
-      if(telefone.substring(0,4) === '0800'){
-          telefoneFormatado = `${telefone.substring(0,4)}-${telefone.substring(4,7)}-${telefone.substring(7)}`;
-      } else if (telefone.length === 11) {
-        telefoneFormatado = `(${telefone.substring(0, 2)}) ${telefone.substring(2, 7)}-${telefone.substring(7)}`;
-      } else if (telefone.length === 10) {
-        telefoneFormatado = `(${telefone.substring(0, 2)}) ${telefone.substring(2, 6)}-${telefone.substring(6)}`;
-      }
-      
-      document.getElementById("nomeDisplay").innerText = nome;
-      document.getElementById("cargoDisplay").innerText = cargo;
-      document.getElementById("telefoneDisplay").innerText = telefoneFormatado;
-    }
-
-    function baixarImagem() {
-      // Verifica se há conteúdo para baixar
-      if (!document.getElementById("nomeDisplay").innerText || 
-          document.getElementById("nomeDisplay").innerText === "Seu Nome Completo") {
-        showToast("Por favor, gere a assinatura primeiro antes de baixar.");
-        return;
-      }
-      
-      html2canvas(document.querySelector("#assinatura"), {
-        useCORS: true,
-        backgroundColor: null,
-        scale: 2 // Melhora a qualidade da imagem
-      }).then((canvas) => {
-        const link = document.createElement("a");
-        link.download = "assinatura-mon-seguros.png";
-        link.href = canvas.toDataURL("image/png");
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      });
-    }
-  </script>
-</body>
+  </body>
 </html>
