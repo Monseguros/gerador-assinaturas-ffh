@@ -63,7 +63,7 @@ header {
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 5rem;
   font-weight: 600;
   color: var(--primary-accent);
   margin-bottom: 5px;
@@ -228,7 +228,7 @@ input:focus {
   padding: 10px 0;
   position: relative;
   align-items: center;
-  border-radius: 4px;
+  border-radius: 10px;
 }
 
 .conteudo {
@@ -242,9 +242,8 @@ input:focus {
 
 .separador-vertical {
   width: 1px;
-  height: 250px;
+  height: 200px;
   background-color: var(--gray-light);
-  margin: 0 20px;
 }
 
 .logo {
@@ -260,7 +259,7 @@ input:focus {
 .nome {
   color: var(--primary-accent);
   font-weight: normal;
-  font-size: 30px;
+  font-size: 35px;
   line-height: 2;
   font-family: apple-garamond, inter;
   text-shadow: 0 0 5px var(--shadow);
@@ -315,15 +314,16 @@ input:focus {
 }
 
 .container-logo .moeda {
-  width: 200px;
+  width: 250px;
   opacity: .2;
 }
 
 .container-logo .business {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  place-items: center;
+  place-items: center left;
   gap: 1rem;
+  margin-top: 2rem;
 }
 
 .container-logo .business img {
@@ -342,7 +342,9 @@ input:focus {
 
 .info-row > div {
   display: flex;
-  gap: .4rem;
+  gap: 1rem;
+  width: 100%;
+  align-items: center;
 }
 
 .info-row > div > img {
@@ -350,7 +352,7 @@ input:focus {
 }
 
 .contact-icon {
-  width: 20px;
+  width: 30px;
 }
 
 .address {
@@ -418,85 +420,6 @@ input:focus {
 .step-content {
   font-size: 2rem;
   color: #555;
-}
-
-@media (max-width: 900px) {
-  .conteudo {
-    padding: 0 40px;
-  }
-}
-
-@media (max-width: 768px) {
-  .conteudo {
-    padding: 0 20px;
-  }
-
-  .logo {
-    width: 100%;
-    object-fit: contain;
-  }
-
-  .container-logo .moeda {
-    display: none;
-  }
-
-  .separador-vertical {
-    margin: 0 10px;
-  }
-
-  .nome {
-    font-size: 18px;
-  }
-}
-
-@media (max-width: 600px) {
-  .card {
-    padding: 20px;
-  }
-
-  .conteudo {
-    flex-direction: column;
-    padding: 20px;
-    gap: 15px;
-    align-items: center;
-  }
-
-  .separador-vertical {
-    width: 100px;
-    height: 1px;
-    margin: 10px 0;
-  }
-
-  .info {
-    order: 2;
-    width: 100%;
-  }
-
-  .container-logo {
-    order: 1;
-    align-items: center;
-    margin-top: 0;
-    width: 100%;
-  }
-
-  .address {
-    text-align: center;
-    margin-top: 10px;
-  }
-
-  #assinatura {
-    height: auto;
-    padding-bottom: 20px;
-    width: 100%;
-  }
-
-  .bot-line {
-    margin-top: 20px;
-  }
-
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 .toast {
