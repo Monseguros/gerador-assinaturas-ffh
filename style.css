@@ -59,12 +59,12 @@ header {
   height: 100px;
   margin: 0 auto 15px;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-  object-fit: cover;
+  object-fit: contain;
 }
 
 h1 {
-  font-size: 5rem;
-  font-weight: 600;
+  font-size: 3rem;
+  font-weight: 100;
   color: var(--primary-accent);
   margin-bottom: 5px;
   text-shadow: 0 2px 4px var(--shadow);
@@ -73,7 +73,7 @@ h1 {
 .subtitle {
   color: rgba(255, 255, 255, 0.85);
   font-size: 1.1rem;
-  font-weight: 400;
+  font-weight: 100;
   max-width: 600px;
   margin: 0 auto;
 }
