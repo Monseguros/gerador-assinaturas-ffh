@@ -209,7 +209,6 @@ input:focus {
 .preview-title {
   font-size: 1.4rem;
   color: var(--primary-dark);
-  font-weight: 600;
   text-align: center;
   margin-bottom: 15px;
 }
@@ -217,7 +216,8 @@ input:focus {
 /* Estilo da assinatura mantido igual ao original */
 #assinatura {
   overflow: hidden;
-  width: 1400px;
+  width: 100%;
+  max-width: 1400px;
   background-color: var(--primary-dark);
   height: 320px;
   margin: 0 auto;
@@ -229,6 +229,7 @@ input:focus {
   position: relative;
   align-items: center;
   border-radius: 10px;
+  place-content: center;
 }
 
 .conteudo {
@@ -238,6 +239,7 @@ input:focus {
   align-items: center;
   padding: 0 80px;
   position: relative;
+  gap: 4rem;
 }
 
 .separador-vertical {
@@ -259,14 +261,14 @@ input:focus {
 .nome {
   color: var(--primary-accent);
   font-weight: normal;
-  font-size: 35px;
+  font-size: 30px;
   line-height: 2;
   font-family: apple-garamond, inter;
   text-shadow: 0 0 5px var(--shadow);
 }
 
 .cargo {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 200;
   line-height: 1.2;
   text-shadow: 0 0 5px var(--shadow);
@@ -282,7 +284,7 @@ input:focus {
 
 .telefone,
 .site {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: normal;
   line-height: 1.2;
   text-shadow: 0 0 5px var(--shadow);
@@ -310,24 +312,24 @@ input:focus {
   width: fit-content;
   position: relative;
   display: grid;
-  align-items: end;
+  place-items: center;
 }
 
 .container-logo .moeda {
   width: 250px;
-  opacity: .2;
+  opacity: .1;
 }
 
 .container-logo .business {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  place-items: center left;
+  place-items: center;
   gap: 1rem;
   margin-top: 2rem;
 }
 
 .container-logo .business img {
-  width: 100px;
+  width: 150px;
   height: fit-content;
 }
 
